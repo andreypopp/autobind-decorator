@@ -11,12 +11,14 @@ build: $(LIB)
 test::
 	@$(BIN)/mochify \
 		--transform [ babelify $(BABEL_OPTS) ] \
+		--phantomjs $(BIN)/phantomjs \
 		$(TESTS)
 
 ci::
 	@$(BIN)/mochify \
 		--watch \
 		--transform [ babelify $(BABEL_OPTS) ] \
+		--phantomjs $(BIN)/phantomjs \
 		$(TESTS)
 
 lint::
