@@ -1,6 +1,6 @@
 # autobind decorator
 
-This is a method decorator which is when applied to a method binds it to an
+This is a class or method decorator which will bind methods it to an
 object so `this` always points to an object instance within a method.
 
 As decorators are a part of future ES7 standard they can only be used with
@@ -29,3 +29,9 @@ Example:
     let component = new Component(42)
     let method = component.method // .bind(component) isn't needed!
     method() // returns 42
+
+
+    // Also usable on the class to bind all methods
+
+    @autobind
+    class Component { }
