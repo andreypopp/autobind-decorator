@@ -29,7 +29,7 @@ function boundClass(target) {
     // Ignore special case target method
     if (key === 'constructor') return;
 
-    var descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
+    const descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
 
     // Only methods need binding
     if (typeof descriptor.value === 'function') {
@@ -46,7 +46,7 @@ function boundClass(target) {
  */
 function boundMethod(target, key, descriptor) {
   let _key;
-  let fn = descriptor.value;
+  const fn = descriptor.value;
 
   if (typeof fn !== 'function') {
     throw new Error(`@autobind decorator can only be applied to methods not: ${typeof fn}`);
