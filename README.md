@@ -26,8 +26,8 @@ Example:
       }
     }
 
-    let component = new Component(42)
-    let method = component.method // .bind(component) isn't needed!
+    const component = new Component(42)
+    const method = component.method // .bind(component) isn't needed!
     method() // returns 42
 
 

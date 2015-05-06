@@ -17,13 +17,13 @@ describe('autobind method decorator', function() {
   }
 
   it('binds methods to an instance', function() {
-    let a = new A();
-    let getValue = a.getValue;
+    const a = new A();
+    const getValue = a.getValue;
     assert(getValue() === 42);
   });
 
   it('binds method only once', function() {
-    let a = new A();
+    const a = new A();
     assert(a.getValue === a.getValue);
   });
 
@@ -39,8 +39,8 @@ describe('autobind method decorator', function() {
         return this.val;
       }
     }
-    let a = new A();
-    let getValue = a[symbol];
+    const a = new A();
+    const getValue = a[symbol];
     assert(getValue() === 42);
   });
   */
@@ -72,13 +72,13 @@ describe('autobind class decorator', function() {
   }
 
   it('binds methods to an instance', function() {
-    let a = new A();
-    let getValue = a.getValue;
+    const a = new A();
+    const getValue = a.getValue;
     assert(getValue() === 42);
   });
 
   it('binds method only once', function() {
-    let a = new A();
+    const a = new A();
     assert(a.getValue === a.getValue);
   });
 
