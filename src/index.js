@@ -12,6 +12,9 @@
  * }
  * ```
  */
+
+import Reflect from 'harmony-reflect';
+
 export default function autobind(...args) {
   if (args.length === 1) {
     return boundClass(...args);
