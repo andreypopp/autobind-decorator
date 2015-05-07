@@ -27,9 +27,11 @@ function boundClass(target) {
   // (Using reflect to get all keys including symbols)
   Reflect.ownKeys(target.prototype).forEach(key => {
     // Ignore special case target method
-    if (key === 'constructor') return;
+    if (key === 'constructor') {
+      return;
+    }
 
-    var descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
+    let descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
 
     // Only methods need binding
     if (typeof descriptor.value === 'function') {
@@ -52,7 +54,7 @@ function boundMethod(target, key, descriptor) {
   }
 
   return {
-    configurable: true, // must be true or we could not be changing it
+    configurable: true,
     get() {
       let boundFn = fn.bind(this);
       Object.defineProperty(this, key, {

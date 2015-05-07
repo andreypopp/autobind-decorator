@@ -1,7 +1,7 @@
 BIN = ./node_modules/.bin
-SRC = $(shell find src -name '*.js')
+TESTS = $(shell find src -name '*-test.js')
+SRC = $(filter-out %-test.js, $(shell find src -name '*.js'))
 LIB = $(SRC:src/%=lib/%)
-TESTS = $(wildcard ./src/__tests__/*.js)
 
 BABEL_OPTS = \
 	--stage 0
@@ -22,6 +22,7 @@ ci::
 		$(TESTS)
 
 lint::
+	@$(BIN)/eslint $(SRC)
 
 release-patch: build test lint
 	@$(call release,patch)
