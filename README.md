@@ -8,10 +8,11 @@ transpilers such as [Babel](http://babeljs.io).
 
 Installation:
 
-    % npm install autobind-decorator
+    % npm install autobind-decorator core-js
 
 Example:
 
+    import 'core-js/modules/es6.reflect' // Reflect polyfill is required
     import autobind from 'autobind-decorator'
 
     class Component {

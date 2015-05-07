@@ -8,6 +8,7 @@
   "devDependencies": {
     "babel": "^5.0.12",
     "babelify": "^6.0.2",
+    "core-js": "^0.9.6",
     "mocha": "^2.2.4",
     "mochify": "^2.7.1",
     "phantomjs": "^1.9.16"

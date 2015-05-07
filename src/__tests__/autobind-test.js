@@ -1,4 +1,4 @@
-import 'babel/polyfill';
+import 'core-js/modules/es6.reflect';
 import assert from 'assert';
 import autobind from '../';
 
