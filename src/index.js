@@ -45,30 +45,22 @@ function boundClass(target) {
  * and memoize the result against a symbol on the instance
  */
 function boundMethod(target, key, descriptor) {
-  let _key;
   let fn = descriptor.value;
 
   if (typeof fn !== 'function') {
     throw new Error(`@autobind decorator can only be applied to methods not: ${typeof fn}`);
   }
 
-  if (typeof key === 'string') {
-    // Add the key to the symbol name for easier debugging
-    _key = Symbol(`@autobind method: ${key}`);
-  } else if (typeof key === 'symbol') {
-    // A symbol cannot be coerced to a string
-    _key = Symbol('@autobind method: (symbol)');
-  } else {
-    throw new Error(`Unexpected key type: ${typeof key}`);
-  }
-
   return {
     configurable: true, // must be true or we could not be changing it
     get() {
-      if (!this.hasOwnProperty(_key)) {
-        this[_key] = fn.bind(this);
-      }
-      return this[_key];
+      let boundFn = fn.bind(this);
+      Object.defineProperty(this, key, {
+        value: boundFn,
+        configurable: true,
+        writable: true
+      });
+      return boundFn;
     }
   };
 }
