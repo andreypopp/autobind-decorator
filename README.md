@@ -12,7 +12,7 @@ Installation:
 
 Example:
 
-    import 'core-js/modules/es6.reflect' // Reflect polyfill is required
+    import 'core-js/modules/es6.reflect' // Will use Reflect polyfill if exposed
     import autobind from 'autobind-decorator'
 
     class Component {
