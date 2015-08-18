@@ -1,7 +1,7 @@
 BIN = ./node_modules/.bin
 TESTS = $(shell find ./src -name '*-test.js')
 SRC = $(filter-out %-test.js, $(shell find ./src -name '*.js'))
-LIB = $(SRC:src/%=lib/%)
+LIB = $(SRC:./src/%=lib/%)
 
 BABEL_OPTS = \
 	--stage 0
