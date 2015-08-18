@@ -25,7 +25,19 @@ export default function autobind(...args) {
  */
 function boundClass(target) {
   // (Using reflect to get all keys including symbols)
-  Reflect.ownKeys(target.prototype).forEach(key => {
+  let keys;
+  // Use Reflect if exists
+  if (typeof Reflect !== 'undefined') {
+    keys = Reflect.ownKeys(target.prototype);
+  } else {
+    keys = Object.getOwnPropertyNames(target.prototype);
+    // use symbols if support is provided
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      keys = keys.concat(Object.getOwnPropertySymbols(target.prototype));
+    }
+  }
+
+  keys.forEach(key => {
     // Ignore special case target method
     if (key === 'constructor') {
       return;

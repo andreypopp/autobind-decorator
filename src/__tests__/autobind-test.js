@@ -1,4 +1,5 @@
 import 'core-js/modules/es6.reflect';
+import 'core-js/modules/es6.symbol';
 import assert from 'assert';
 import autobind from '../';
 
@@ -59,6 +60,8 @@ describe('autobind method decorator', function() {
 
 describe('autobind class decorator', function() {
 
+  let symbol = Symbol('getValue');
+
   @autobind
   class A {
 
@@ -67,6 +70,10 @@ describe('autobind class decorator', function() {
     }
 
     getValue() {
+      return this.value;
+    }
+
+    [symbol] () {
       return this.value;
     }
   }
@@ -90,6 +97,91 @@ describe('autobind class decorator', function() {
           return 1;
         }
       }
+    });
+  });
+
+  describe('with Reflect', function () {
+    describe('with Symbols', function () {
+      it('binds methods with symbol keys', function () {
+        let a = new A();
+        let getValue = a[symbol];
+        assert(getValue() === 42);
+      });
+    });
+  });
+
+  describe('without Reflect', function () {
+    // remove Reflect pollyfill
+    let _Reflect = Reflect;
+    let A;
+
+    before(function () {
+      Reflect = undefined;
+
+      @autobind
+      class B {
+        constructor() {
+          this.value = 42;
+        }
+        getValue() {
+          return this.value;
+        }
+        [symbol] () {
+          return this.value;
+        }
+      }
+      A = B;
+    });
+
+    after(function () {
+      Reflect = _Reflect;
+    });
+
+    it('falls back to Object.getOwnPropertyNames', function () {
+      let a = new A();
+      let getValue = a.getValue;
+      assert(getValue() === 42);
+    });
+
+    describe('with Symbols', function () {
+      it('falls back to Object.getOwnPropertySymbols', function () {
+        let a = new A();
+        let getValue = a[symbol];
+        assert(getValue() === 42);
+      });
+    });
+
+    describe('without Symbols', function () {
+      let _Symbol = Symbol;
+      let _getOwnPropertySymbols = Object.getOwnPropertySymbols;
+      let A;
+
+      before(function () {
+        Symbol = undefined;
+        Object.getOwnPropertySymbols = undefined;
+
+        @autobind
+        class B {
+          constructor() {
+            this.value = 42;
+          }
+          getValue() {
+            return this.value;
+          }
+        }
+        A = B;
+      });
+
+      after(function () {
+        Symbol = _Symbol;
+        Object.getOwnPropertySymbols = _getOwnPropertySymbols;
+      });
+
+      it('does throws no error if Symbol is not supported', function () {
+        let a = new A();
+        let getValue = a.getValue;
+        assert(getValue() === 42);
+      });
     });
   });
 });
