@@ -100,6 +100,14 @@ describe('autobind class decorator', function() {
     });
   });
 
+  it('does not override itself when accessed on the prototype', function() {
+    A.prototype.getValue;
+
+    let a = new A();
+    let getValue = a.getValue;
+    assert(getValue() === 42);
+  })
+
   describe('with Reflect', function () {
     describe('with Symbols', function () {
       it('binds methods with symbol keys', function () {

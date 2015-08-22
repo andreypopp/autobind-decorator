@@ -68,6 +68,10 @@ function boundMethod(target, key, descriptor) {
   return {
     configurable: true,
     get() {
+      if (this === target.prototype) {
+        return fn;
+      }
+
       let boundFn = fn.bind(this);
       Object.defineProperty(this, key, {
         value: boundFn,
