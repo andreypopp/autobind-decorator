@@ -1,12 +1,17 @@
 BIN = ./node_modules/.bin
 TESTS = $(shell find ./src -name '*-test.js')
-SRC = $(filter-out %-test.js, $(shell find ./src -name '*.js'))
+SRC = $(shell find ./src -name '*.js')
 LIB = $(SRC:./src/%=lib/%)
 
 BABEL_OPTS = \
 	--stage 0
 
-build: $(LIB)
+build:: $(LIB)
+
+build-test:: build
+	@$(BIN)/mochify \
+		--phantomjs $(BIN)/phantomjs \
+		$(TESTS:./src/%=./lib/%)
 
 test::
 	@$(BIN)/mochify \
@@ -24,13 +29,13 @@ ci::
 lint::
 	@$(BIN)/eslint $(SRC)
 
-release-patch: build test lint
+release-patch: build build-test lint
 	@$(call release,patch)
 
-release-minor: build test lint
+release-minor: build build-test lint
 	@$(call release,minor)
 
-release-major: build test lint
+release-major: build build-test lint
 	@$(call release,major)
 
 publish:
