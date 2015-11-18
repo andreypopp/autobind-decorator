@@ -17,6 +17,10 @@ describe('autobind method decorator', function() {
     }
   }
 
+  it('does not bind prototype', function() {
+    assert(A.prototype.getValue.bind({value:1})() === 1);
+  });
+
   it('binds methods to an instance', function() {
     let a = new A();
     let getValue = a.getValue;
