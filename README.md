@@ -14,11 +14,14 @@ After:
 <button onClick={ this.handleClick }></button>
 ```
 
-As decorators are a part of future ES7 standard they can only be used with
-transpilers such as [Babel](http://babeljs.io). Please note that using Babel 
-6.0 the implementation of the decorator spec is currently on hold as the syntax 
+As decorators are a part of future ES2016 standard they can only be used with
+transpilers such as [Babel](http://babeljs.io).
+
+**Note Babel 6 users:**
+The implementation of the decorator transform is currently on hold as the syntax 
 is not final. If you would like to use this project with Babel 6.0, you may use 
-[babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) to have it compiled similar to Babel 5.
+[babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
+which implement Babel 5 decorator transform for Babel 6.
 
 Installation:
 
