@@ -27,7 +27,7 @@ function boundClass(target) {
   // (Using reflect to get all keys including symbols)
   let keys;
   // Use Reflect if exists
-  if (typeof Reflect !== 'undefined') {
+  if (typeof Reflect !== 'undefined' && typeof Reflect.ownKeys === 'function') {
     keys = Reflect.ownKeys(target.prototype);
   } else {
     keys = Object.getOwnPropertyNames(target.prototype);
