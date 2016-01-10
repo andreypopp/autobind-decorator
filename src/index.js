@@ -47,7 +47,7 @@ function boundClass(target) {
 
     // Only methods need binding
     if (typeof descriptor.value === 'function') {
-      Object.defineProperty(target.prototype, key, boundMethod(target, key, descriptor));
+      Object.defineProperty(target.prototype, key, boundMethod(target.prototype, key, descriptor));
     }
   });
   return target;
@@ -68,7 +68,7 @@ function boundMethod(target, key, descriptor) {
   return {
     configurable: true,
     get() {
-      if (this === target.prototype) {
+      if (this === target) {
         return fn;
       }
 
