@@ -56,6 +56,23 @@ describe('autobind method decorator', function() {
       }
     }, /@autobind decorator can only be applied to methods/);
   });
+
+
+  it('should not override binded instance method, while calling super method with the same name', function() {
+    class B extends A {
+
+      @autobind
+      getValue() {
+        return super.getValue() + 8;
+      }
+    }
+
+    let b = new B();
+    let value = b.getValue();
+    value = b.getValue();
+
+    assert(value === 50);
+  });
 });
 
 describe('autobind class decorator', function() {
