@@ -5,6 +5,14 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "it": true,
+    "describe": true,
+    "before": true,
+    "after": true,
+    "Symbol": true,
+    "Reflect": true
+  },
   "rules": {
     "strict": 0,
 
@@ -58,7 +66,7 @@
     "no-loop-func": 2,                // Disallow creation of functions within loops
     "no-multi-str": 2,                // Disallow use of multiline strings
     "no-multi-spaces": [0],           // Disallow use of multiline strings
-    "no-native-reassign": 2,          // Disallow reassignments of native objects
+    "no-native-reassign": 0,          // Disallow reassignments of native objects
     "no-new": 2,                      // Disallow use of new operator when not part of the assignment or comparison
     "no-new-func": 2,                 // Disallow use of new operator for Function object
     "no-new-wrappers": 2,             // Disallows creating new instances of String,Number, and Boolean

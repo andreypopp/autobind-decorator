@@ -48,7 +48,7 @@ describe('autobind method decorator', function() {
 
   it('throws if applied on a method of more than zero arguments', function() {
     assert.throws(() => {
-      class A {
+      class A { // eslint-disable-line no-unused-vars
         @autobind
         get value() {
           return 1;
@@ -58,7 +58,7 @@ describe('autobind method decorator', function() {
   });
 
 
-  it('should not override binded instance method, while calling super method with the same name', function() {
+  it('should not override binded instance method, while calling super method with the same name', function() { // eslint-disable-line max-len
     class B extends A {
 
       @autobind
@@ -109,7 +109,7 @@ describe('autobind class decorator', function() {
   it('ignores non method values', function() {
     assert.doesNotThrow(() => {
       @autobind
-      class A {
+      class A { // eslint-disable-line no-unused-vars
         get value() {
           return 1;
         }
@@ -118,12 +118,12 @@ describe('autobind class decorator', function() {
   });
 
   it('does not override itself when accessed on the prototype', function() {
-    A.prototype.getValue;
+    A.prototype.getValue; // eslint-disable-line no-unused-expressions
 
     let a = new A();
     let getValue = a.getValue;
     assert(getValue() === 42);
-  })
+  });
 
   describe('with Reflect', function () {
     describe('with Symbols', function () {
