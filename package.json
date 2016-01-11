@@ -1,6 +1,6 @@
 {
   "name": "autobind-decorator",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Decorator for binding method to an object",
   "main": "lib/index.js",
   "scripts": {
