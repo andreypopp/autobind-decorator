@@ -17,5 +17,9 @@
     "mocha": "^2.2.4",
     "mochify": "^2.7.1",
     "phantomjs": "^1.9.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreypopp/autobind-decorator.git"
   }
 }
