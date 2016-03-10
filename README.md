@@ -6,7 +6,8 @@ so `this` is always correct, even when the method is detached.
 This is particularly useful for situations like React components, where 
 you often pass methods as event handlers and would otherwise need to 
 `.bind(this)`.
-```
+
+```js
 Before:
 <button onClick={ this.handleClick.bind(this) }></button>
 
@@ -29,26 +30,28 @@ Installation:
 
 Example:
 
-    import autobind from 'autobind-decorator'
+```js
+import autobind from 'autobind-decorator'
 
-    class Component {
+class Component {
 
-      constructor(value) {
-        this.value = value
-      }
+  constructor(value) {
+    this.value = value
+  }
 
-      @autobind
-      method() {
-        return this.value
-      }
-    }
+  @autobind
+  method() {
+    return this.value
+  }
+}
 
-    let component = new Component(42)
-    let method = component.method // .bind(component) isn't needed!
-    method() // returns 42
+let component = new Component(42)
+let method = component.method // .bind(component) isn't needed!
+method() // returns 42
 
 
-    // Also usable on the class to bind all methods
+// Also usable on the class to bind all methods
 
-    @autobind
-    class Component { }
+@autobind
+class Component { }
+```
