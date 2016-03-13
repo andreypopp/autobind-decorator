@@ -235,7 +235,7 @@ describe('autobind class decorator with matching', function() {
     assert(getValue() === 42);
   });
 
-  it('skips bind on unmatched mathods', function() {
+  it('skips bind on unmatched methods', function() {
     assert.throws(() => {
       let a = new A();
       let fetchValue = a.fetchValue;
