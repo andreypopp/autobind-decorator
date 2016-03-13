@@ -210,3 +210,69 @@ describe('autobind class decorator', function() {
     });
   });
 });
+
+describe('autobind class decorator with matching', function() {
+
+  @autobind(/^(getValue)$/)
+  class A {
+
+    constructor() {
+      this.value = 42;
+    }
+
+    getValue() {
+      return this.value;
+    }
+
+    fetchValue() {
+      return this.value;
+    }
+  }
+
+  it('binds matched method to an instance', function() {
+    let a = new A();
+    let getValue = a.getValue;
+    assert(getValue() === 42);
+  });
+
+  it('skips bind on unmatched mathods', function() {
+    assert.throws(() => {
+      let a = new A();
+      let fetchValue = a.fetchValue;
+      fetchValue();
+    })
+  });
+});
+
+describe('autobind class decorator with inverse matching', function() {
+
+  @autobind(/^(fetchValue)$/, true)
+  class A {
+
+    constructor() {
+      this.value = 42;
+    }
+
+    getValue() {
+      return this.value;
+    }
+
+    fetchValue() {
+      return this.value;
+    }
+  }
+
+  it('binds matched method to an instance', function() {
+    let a = new A();
+    let getValue = a.getValue;
+    assert(getValue() === 42);
+  });
+
+  it('skips bind on unmatched methods', function() {
+    assert.throws(() => {
+      let a = new A();
+      let fetchValue = a.fetchValue;
+      fetchValue();
+    })
+  });
+});

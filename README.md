@@ -3,8 +3,8 @@
 A class or method decorator which binds methods to the instance
 so `this` is always correct, even when the method is detached.
 
-This is particularly useful for situations like React components, where 
-you often pass methods as event handlers and would otherwise need to 
+This is particularly useful for situations like React components, where
+you often pass methods as event handlers and would otherwise need to
 `.bind(this)`.
 ```
 Before:
@@ -18,8 +18,8 @@ As decorators are a part of future ES2016 standard they can only be used with
 transpilers such as [Babel](http://babeljs.io).
 
 **Note Babel 6 users:**
-The implementation of the decorator transform is currently on hold as the syntax 
-is not final. If you would like to use this project with Babel 6.0, you may use 
+The implementation of the decorator transform is currently on hold as the syntax
+is not final. If you would like to use this project with Babel 6.0, you may use
 [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
 which implement Babel 5 decorator transform for Babel 6.
 
@@ -52,3 +52,22 @@ Example:
 
     @autobind
     class Component { }
+
+    // If you only want to bind certain methods, use the matching mode
+
+    @autobind(/^(handle)/)
+    class Component {
+      // Bound to instance
+      handleClick(e) {}
+
+      // Not bound to instnace
+      render() {}
+    }
+
+    // You can invert the matching by passing `true` as the second argument.
+
+    @autobind(/^(render)/, true)
+    class Component {
+      // Not bound to instance.
+      render() {}
+    }

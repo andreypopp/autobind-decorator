@@ -11,12 +11,18 @@
  *   method () {}
  * }
  * ```
+ *
+ * If you pass a RegExp as the first argument, this returns an autobind
+ * decorator that only binds matched methods. If the second argument is
+ * true, then it inverses the matching.
  */
 export default function autobind(...args) {
-  if (args.length === 1) {
-    return boundClass(...args);
+  if (args[0] instanceof RegExp) {
+    return autobind.bind({match: args[0], inverse: !!args[1]});
+  } else if (args.length === 1) {
+    return boundClass.call(this, ...args);
   } else {
-    return boundMethod(...args);
+    return boundMethod.call(this, ...args);
   }
 }
 
@@ -47,7 +53,7 @@ function boundClass(target) {
 
     // Only methods need binding
     if (typeof descriptor.value === 'function') {
-      Object.defineProperty(target.prototype, key, boundMethod(target, key, descriptor));
+      Object.defineProperty(target.prototype, key, boundMethod.call(this, target, key, descriptor));
     }
   });
   return target;
@@ -63,6 +69,15 @@ function boundMethod(target, key, descriptor) {
 
   if (typeof fn !== 'function') {
     throw new Error(`@autobind decorator can only be applied to methods not: ${typeof fn}`);
+  }
+
+  // Optionally filter which methods are bound
+  if (this && this.match) {
+    if (this.inverse) {
+      if (this.match.test(key)) return target;
+    } else {
+      if (!this.match.test(key)) return target;
+    }
   }
 
   return {
