@@ -45,7 +45,6 @@
     "no-alert": 2,                    // Disallow the use of alert, confirm, and prompt
     "no-caller": 2,                   // Disallow use of arguments.caller or arguments.callee
     "no-div-regex": 2,                // Disallow division operators explicitly at beginning of regular expression (off by default)
-    "no-empty-label": 2,              // Disallow use of labels for anything other then loops and switches
     "no-eval": 2,                     // Disallow use of eval()
     "no-extend-native": 2,            // Disallow adding to native types
     "no-extra-bind": 2,               // Disallow unnecessary function binding
@@ -125,7 +124,7 @@
     "space-in-brackets": [0, "never"],    // Require or disallow spaces inside brackets (off by default)
     "space-in-parens": [1, "never"],      // Require or disallow spaces inside parentheses (off by default)
     "space-infix-ops": [1, {}],     // Require spaces around operators
-    "space-return-throw-case": [1], // require a space after return, throw, and case
+    "keyword-spacing": [1], // require a space after return, throw, and case
     "space-unary-ops": [1, {"words": true, "nonwords": false}], // Require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
     "spaced-comment": [1, "always"], // Require or disallow a space immediately following the // in a line comment (off by default)
     "wrap-regex": 0,                      // Require regex literals to be wrapped in parentheses (off by default)
