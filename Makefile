@@ -4,7 +4,8 @@ SRC = $(shell find ./src -name '*.js')
 LIB = $(SRC:./src/%=lib/%)
 
 BABEL_OPTS = \
-	--stage 0
+	--presets=es2015 \
+	--plugins=transform-decorators-legacy
 
 build:: $(LIB)
 
