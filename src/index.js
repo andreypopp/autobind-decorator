@@ -12,12 +12,18 @@
  * }
  * ```
  */
-export default function autobind(...args) {
+function autobind(...args) {
   if (args.length === 1) {
     return boundClass(...args);
   } else {
     return boundMethod(...args);
   }
+}
+
+if(typeof exports === "object"){
+    module.exports = autobind;
+} else {
+    window.autobind = autobind;
 }
 
 /**
