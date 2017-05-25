@@ -1,5 +1,6 @@
-/**
- * @copyright 2015, Andrey Popp <8mayday@gmail.com>
+// @copyright 2016, Andrey Popp <8mayday@gmail.com>
+
+/*
  *
  * The decorator may be used on classes or methods
  * ```
