@@ -9,7 +9,7 @@
     "build-test": "make build-test",
     "test": "make test",
     "lint": "make lint",
-    "prepublish": "npm run build",
+    "clean": "make clean",
     "preversion": "npm run build && npm run build-test && npm run lint && npm run test"
   },
   "author": "Andrey Popp <8mayday@gmail.com>",

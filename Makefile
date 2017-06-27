@@ -30,13 +30,13 @@ ci::
 lint::
 	@$(BIN)/eslint $(SRC)
 
-release-patch: build build-test lint
+release-patch: clean build build-test lint
 	@$(call release,patch)
 
-release-minor: build build-test lint
+release-minor: clean build build-test lint
 	@$(call release,minor)
 
-release-major: build build-test lint
+release-major: clean build build-test lint
 	@$(call release,major)
 
 publish:
