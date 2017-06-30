@@ -86,6 +86,11 @@ function boundMethod(target, key, descriptor) {
       });
       definingProperty = false;
       return boundFn;
+    },
+    set(value) {
+      Object.defineProperty(this, key, {
+        value: value
+      });
     }
   };
 }

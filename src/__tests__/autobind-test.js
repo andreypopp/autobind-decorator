@@ -73,6 +73,19 @@ describe('autobind method decorator', function() {
 
     assert(value === 50);
   });
+
+  it('add setters for bound methods', function () {
+    assert.doesNotThrow(() => {
+      @autobind
+      class A {
+        doNothing() {}
+      }
+
+      A.prototype.doNothing = function () {
+        return true;
+      };
+    });
+  });
 });
 
 describe('autobind class decorator', function() {
