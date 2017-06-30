@@ -74,7 +74,7 @@ function boundMethod(target, key, descriptor) {
     configurable: true,
     get() {
       if (definingProperty || this === target.prototype || this.hasOwnProperty(key)) {
-        return fn;
+        return this.hasOwnProperty(key) ? this[key] : fn;
       }
 
       let boundFn = fn.bind(this);
