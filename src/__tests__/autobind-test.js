@@ -57,8 +57,7 @@ describe('autobind method decorator', function() {
     }, /@autobind decorator can only be applied to methods/);
   });
 
-
-  it('should not override binded instance method, while calling super method with the same name', function() { // eslint-disable-line max-len
+  it('should not override bound instance method, while calling super method with the same name', function() { // eslint-disable-line max-len
     class B extends A {
 
       @autobind
@@ -208,5 +207,58 @@ describe('autobind class decorator', function() {
         assert(getValue() === 42);
       });
     });
+  });
+});
+
+describe('set new value', function() {
+  class A {
+    constructor() {
+      this.data = 'A';
+      this.foo = 'foo';
+      this.bar = 'bar';
+    }
+
+    @autobind
+    noop() {
+      return this.data;
+    }
+  }
+
+  const a = new A();
+
+  it('should not throw when reassigning to an object', function () {
+    a.noop = {
+      foo: 'bar'
+    };
+    assert.deepEqual(a.noop, {
+      foo: 'bar'
+    });
+    assert.equal(a.noop, a.noop);
+  });
+
+  it('should not throw when reassigning to a function', function() {
+    a.noop = function noop () {
+      return this.foo;
+    };
+    assert.equal(a.noop(), 'foo');
+    const noop = a.noop;
+    assert.equal(noop(), 'foo');
+    assert.equal(a.noop, a.noop);
+  });
+
+  it('should not throw when reassigning to a function again', function() {
+    a.noop = function noop2 () {
+      return this.bar;
+    };
+    assert(a.noop(), 'bar');
+    const noop2 = a.noop;
+    assert.equal(noop2(), 'bar');
+    assert.equal(a.noop, a.noop);
+  });
+
+  it('should not throw when reassigning to an object after bound a function', function() {
+    a.noop = {};
+    assert.deepEqual(a.noop, {});
+    assert.equal(a.noop, a.noop);
   });
 });

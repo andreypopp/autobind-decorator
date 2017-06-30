@@ -73,19 +73,28 @@ function boundMethod(target, key, descriptor) {
   return {
     configurable: true,
     get() {
-      if (definingProperty || this === target.prototype || this.hasOwnProperty(key)) {
+      if (definingProperty || this === target.prototype || this.hasOwnProperty(key)
+        || typeof fn !== 'function') {
         return fn;
       }
 
       let boundFn = fn.bind(this);
       definingProperty = true;
       Object.defineProperty(this, key, {
-        value: boundFn,
         configurable: true,
-        writable: true
+        get() {
+          return boundFn;
+        },
+        set(value) {
+          fn = value;
+          delete this[key];
+        }
       });
       definingProperty = false;
       return boundFn;
+    },
+    set(value) {
+      fn = value;
     }
   };
 }
