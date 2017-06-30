@@ -210,3 +210,28 @@ describe('autobind class decorator', function() {
     });
   });
 });
+
+it('should not throw when set new value', function () {
+  class A {
+    constructor() {
+      this.data = 'A';
+    }
+
+    @autobind
+    noop() {
+      return this.data;
+    }
+  }
+
+  const a = new A();
+  a.noop = function noop () {
+    return this.data;
+  };
+  const noop = a.noop;
+  noop();
+  a.noop = function noop2 () {
+    return this.data;
+  };
+  const noop2 = a.noop;
+  noop2();
+});
