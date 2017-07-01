@@ -122,6 +122,13 @@ describe('autobind class decorator', function() {
     let a = new A();
     let getValue = a.getValue;
     assert(getValue() === 42);
+
+    const foo = {
+      value: 10,
+      getValue: A.prototype.getValue
+    };
+
+    assert.equal(foo.getValue(), 10);
   });
 
   describe('with Reflect', function () {
