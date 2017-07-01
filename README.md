@@ -46,9 +46,31 @@ method() // returns 42
 
 
 // Also usable on the class to bind all methods
+// Please see performance if you decide to autobind your class
 @autobind
 class Component { }
 ```
+
+## Performance
+
+`autobind` on a method is lazy and is only bound once. :thumbsup:
+
+However,
+
+> It is unnecessary to do that to every function. This is just as bad as autobinding (on a class). You only need to bind functions that you pass around. e.g. `onClick={this.doSomething}`. Or `fetch.then(this.hanldeDone)`
+  -- Dan Abramov‏
+
+You should avoid using `autobind` on a class. :thumbsdown:
+
+> I was the guy who came up with
+autobinding in older Reacts and I'm glad
+to see it gone. It might save you a few
+keystrokes but it allocates functions
+that'll never be called in 90% of cases
+and has noticeable performance
+degradation. Getting rid of autobinding
+is a good thing
+  -- Peter Hunt
 
 ## Alternative
 
