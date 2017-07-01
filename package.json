@@ -23,7 +23,8 @@
     "core-js": "^0.9.18",
     "eslint": "^3.8.0",
     "mochify": "^2.18.1",
-    "phantomjs": "^2.1.7"
+    "phantomjs": "^2.1.7",
+    "standard-version": "^4.2.0"
   },
   "repository": {
     "type": "git",

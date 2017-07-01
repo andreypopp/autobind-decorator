@@ -52,5 +52,5 @@ clean:
 	@rm -rf lib/
 
 define release
-	npm version $(1)
+	@$(BIN)/standard-version --release-as $(1)
 endef
