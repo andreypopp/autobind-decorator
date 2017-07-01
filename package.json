@@ -10,7 +10,7 @@
     "test": "make test",
     "lint": "make lint",
     "clean": "make clean",
-    "preversion": "npm run build && npm run build-test && npm run lint && npm run test"
+    "release": "make release"
   },
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "MIT",

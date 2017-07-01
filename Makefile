@@ -30,14 +30,10 @@ ci::
 lint::
 	@$(BIN)/eslint $(SRC)
 
-release-patch: clean build build-test lint
-	@$(call release,patch)
+version::
+	@$(BIN)/standard-version
 
-release-minor: clean build build-test lint
-	@$(call release,minor)
-
-release-major: clean build build-test lint
-	@$(call release,major)
+release: clean build build-test lint version
 
 publish:
 	git push --tags origin HEAD:master
@@ -50,7 +46,3 @@ lib/%.js: src/%.js
 
 clean:
 	@rm -rf lib/
-
-define release
-	@$(BIN)/standard-version --release-as $(1)
-endef
