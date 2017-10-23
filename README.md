@@ -18,6 +18,10 @@ As [decorators](https://github.com/wycats/javascript-decorators) are a part of [
 
 The implementation of the decorator transform is currently on hold as the syntax is not final. If you would like to use this project with Babel 6.0, you may use [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) which implement Babel 5 decorator transform for Babel 6.
 
+**Note TypeScript users:**
+
+This package will work out of the box with TypeScript (no Babel needed) and includes the `.d.ts` typings along with it.
+
 ## Installation:
 
 ```
