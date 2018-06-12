@@ -59,7 +59,10 @@ function boundClass(target) {
  * and memoize the result against a symbol on the instance
  */
 function boundMethod(target, key, descriptor) {
-  let fn = descriptor.value;
+  // resolve a decoreable method
+  let fn = descriptor
+    ? descriptor.value
+    : target[key];
 
   if (typeof fn !== 'function') {
     throw new Error(`@autobind decorator can only be applied to methods not: ${typeof fn}`);
