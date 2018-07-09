@@ -61,7 +61,7 @@ class Component { }
 
 However,
 
-> It is unnecessary to do that to every function. This is just as bad as autobinding (on a class). You only need to bind functions that you pass around. e.g. `onClick={this.doSomething}`. Or `fetch.then(this.hanldeDone)`
+> It is unnecessary to do that to every function. This is just as bad as autobinding (on a class). You only need to bind functions that you pass around. e.g. `onClick={this.doSomething}`. Or `fetch.then(this.handleDone)`
   -- Dan Abramov‏
 
 You should avoid using `autobind` on a class. :thumbsdown:
