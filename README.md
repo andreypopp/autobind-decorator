@@ -4,7 +4,7 @@ A class or method decorator which binds methods to the instance so `this` is alw
 
 This is particularly useful for situations like React components, where you often pass methods as event handlers and would otherwise need to `.bind(this)`.
 
-`autobind` is lazy and is only bound once. :thumbsup:
+Unlike other alternatives, `autobind` is lazy and is only bound once. :thumbsup:
 
 ```js
 // Before:
@@ -57,6 +57,8 @@ method() // returns 42
 
 ### Legacy approaches:
 
+Magical `@autobind` that can be used on both classes and methods
+
 ```js
 import autobind from 'autobind-decorator'
 
@@ -81,9 +83,12 @@ method() // returns 42
 class Component { }
 ```
 
+For classes:
+
 ```js
 import {boundClass} from 'autobind-decorator'
 
+// Please see performance if you decide to autobind your class
 @boundClass
 class Component {
   constructor(value) {
