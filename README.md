@@ -4,6 +4,8 @@ A class or method decorator which binds methods to the instance so `this` is alw
 
 This is particularly useful for situations like React components, where you often pass methods as event handlers and would otherwise need to `.bind(this)`.
 
+`autobind` is lazy and is only bound once. :thumbsup:
+
 ```js
 // Before:
 <button onClick={ this.handleClick.bind(this) }></button>
@@ -30,6 +32,31 @@ npm install autobind-decorator
 
 ## Examples:
 
+### Recommended way to bind a method:
+
+```js
+import {boundMethod} from 'autobind-decorator'
+
+class Component {
+  constructor(value) {
+    this.value = value
+  }
+
+  @boundMethod
+  method() {
+    return this.value
+  }
+}
+
+let component = new Component(42)
+let method = component.method // .bind(component) isn't needed!
+method() // returns 42
+```
+
+`@boundMethod` makes `method` into an auto-bound method, replacing the explicit bind call later.
+
+### Legacy approaches:
+
 ```js
 import autobind from 'autobind-decorator'
 
@@ -48,23 +75,41 @@ let component = new Component(42)
 let method = component.method // .bind(component) isn't needed!
 method() // returns 42
 
-
 // Also usable on the class to bind all methods
 // Please see performance if you decide to autobind your class
 @autobind
 class Component { }
 ```
 
+```js
+import {boundClass} from 'autobind-decorator'
+
+@boundClass
+class Component {
+  constructor(value) {
+    this.value = value
+  }
+
+  method() {
+    return this.value
+  }
+}
+
+let component = new Component(42)
+let method = component.method // .bind(component) isn't needed!
+method() // returns 42
+```
+
 ## Performance
 
-`autobind` on a method is lazy and is only bound once. :thumbsup:
+`autobind` (`boundMethod`) on a method is lazy and is only bound once. :thumbsup:
 
 However,
 
 > It is unnecessary to do that to every function. This is just as bad as autobinding (on a class). You only need to bind functions that you pass around. e.g. `onClick={this.doSomething}`. Or `fetch.then(this.handleDone)`
   -- Dan Abramov‏
 
-You should avoid using `autobind` on a class. :thumbsdown:
+You should avoid using `autobind` (`boundClass`) on a class. :thumbsdown:
 
 > I was the guy who came up with
 autobinding in older Reacts and I'm glad

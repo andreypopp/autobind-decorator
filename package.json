@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "description": "Decorator for binding method to an object",
   "main": "lib/index.js",
+  "module": "src/index.js",
   "types": "./index.d.ts",
   "scripts": {
     "build": "make build",

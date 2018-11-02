@@ -1,2 +1,1 @@
-src/
-lib/__tests__
+**/*/__tests__
