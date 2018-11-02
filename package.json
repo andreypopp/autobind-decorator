@@ -16,7 +16,7 @@
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.16.0",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^7.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.16.0",
@@ -25,7 +25,7 @@
     "eslint": "^3.8.0",
     "mochify": "^2.18.1",
     "phantomjs": "^2.1.7",
-    "standard-version": "^4.2.0"
+    "standard-version": "^4.4.0"
   },
   "repository": {
     "type": "git",
