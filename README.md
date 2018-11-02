@@ -83,12 +83,11 @@ method() // returns 42
 class Component { }
 ```
 
-For classes:
+Please see performance if you decide to autobind your class:
 
 ```js
 import {boundClass} from 'autobind-decorator'
 
-// Please see performance if you decide to autobind your class
 @boundClass
 class Component {
   constructor(value) {
