@@ -7,7 +7,7 @@ export function boundMethod(target, key, descriptor) {
   let fn = descriptor.value;
 
   if (typeof fn !== 'function') {
-    throw new Error(`@autobind decorator can only be applied to methods not: ${typeof fn}`);
+    throw new Error(`@boundMethod decorator can only be applied to methods not: ${typeof fn}`);
   }
 
   // In IE11 calling Object.defineProperty has a side-effect of evaluating the

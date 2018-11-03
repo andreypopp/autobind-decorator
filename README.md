@@ -4,8 +4,6 @@ A class or method decorator which binds methods to the instance so `this` is alw
 
 This is particularly useful for situations like React components, where you often pass methods as event handlers and would otherwise need to `.bind(this)`.
 
-Unlike other alternatives, `autobind` is lazy and is only bound once. :thumbsup:
-
 ```js
 // Before:
 <button onClick={ this.handleClick.bind(this) }></button>

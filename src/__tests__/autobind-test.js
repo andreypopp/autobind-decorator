@@ -1,9 +1,9 @@
 import 'core-js/modules/es6.reflect';
 import 'core-js/modules/es6.symbol';
 import assert from 'assert';
-import autobind from '../';
+import autobind, {boundMethod, boundClass} from '../';
 
-describe('autobind method decorator', function() {
+describe('autobind method decorator: @boundMethod', function() {
 
   class A {
 
@@ -11,7 +11,7 @@ describe('autobind method decorator', function() {
       this.value = 42;
     }
 
-    @autobind
+    @boundMethod
     getValue() {
       return this.value;
     }
@@ -35,7 +35,7 @@ describe('autobind method decorator', function() {
       constructor () {
         this.val = 42;
       }
-      @autobind
+      @boundMethod
       [symbol] () {
         return this.val;
       }
@@ -49,18 +49,18 @@ describe('autobind method decorator', function() {
   it('throws if applied on a method of more than zero arguments', function() {
     assert.throws(() => {
       class A { // eslint-disable-line no-unused-vars
-        @autobind
+        @boundMethod
         get value() {
           return 1;
         }
       }
-    }, /@autobind decorator can only be applied to methods/);
+    }, /decorator can only be applied to methods/);
   });
 
   it('should not override bound instance method, while calling super method with the same name', function() { // eslint-disable-line max-len
     class B extends A {
 
-      @autobind
+      @boundMethod
       getValue() {
         return super.getValue() + 8;
       }
@@ -72,13 +72,67 @@ describe('autobind method decorator', function() {
 
     assert(value === 50);
   });
+
+  describe('set new value', function() {
+    class A {
+      constructor() {
+        this.data = 'A';
+        this.foo = 'foo';
+        this.bar = 'bar';
+      }
+
+      @boundMethod
+      noop() {
+        return this.data;
+      }
+    }
+
+    const a = new A();
+
+    it('should not throw when reassigning to an object', function () {
+      a.noop = {
+        foo: 'bar'
+      };
+      assert.deepEqual(a.noop, {
+        foo: 'bar'
+      });
+      assert.equal(a.noop, a.noop);
+    });
+
+    it('should not throw when reassigning to a function', function() {
+      a.noop = function noop () {
+        return this.foo;
+      };
+      assert.equal(a.noop(), 'foo');
+      const noop = a.noop;
+      assert.equal(noop(), 'foo');
+      assert.equal(a.noop, a.noop);
+    });
+
+    it('should not throw when reassigning to a function again', function() {
+      a.noop = function noop2 () {
+        return this.bar;
+      };
+      assert(a.noop(), 'bar');
+      const noop2 = a.noop;
+      assert.equal(noop2(), 'bar');
+      assert.equal(a.noop, a.noop);
+    });
+
+    it('should not throw when reassigning to an object after bound a function', function() {
+      a.noop = {};
+      assert.deepEqual(a.noop, {});
+      assert.equal(a.noop, a.noop);
+    });
+  });
+
 });
 
-describe('autobind class decorator', function() {
+describe('autobind class decorator: @boundClass', function() {
 
   let symbol = Symbol('getValue');
 
-  @autobind
+  @boundClass
   class A {
 
     constructor() {
@@ -107,7 +161,7 @@ describe('autobind class decorator', function() {
 
   it('ignores non method values', function() {
     assert.doesNotThrow(() => {
-      @autobind
+      @boundClass
       class A { // eslint-disable-line no-unused-vars
         get value() {
           return 1;
@@ -149,7 +203,7 @@ describe('autobind class decorator', function() {
     before(function () {
       Reflect = undefined;
 
-      @autobind
+      @boundClass
       class B {
         constructor() {
           this.value = 42;
@@ -191,7 +245,7 @@ describe('autobind class decorator', function() {
         Symbol = undefined;
         Object.getOwnPropertySymbols = undefined;
 
-        @autobind
+        @boundClass
         class B {
           constructor() {
             this.value = 42;
@@ -217,55 +271,53 @@ describe('autobind class decorator', function() {
   });
 });
 
-describe('set new value', function() {
-  class A {
-    constructor() {
-      this.data = 'A';
-      this.foo = 'foo';
-      this.bar = 'bar';
+describe('magical autobind decorator: @autobind', function() {
+  describe('method decorator', function() {
+
+    class A {
+
+      constructor() {
+        this.value = 42;
+      }
+
+      @autobind
+      getValue() {
+        return this.value;
+      }
     }
+
+    it('binds methods to an instance', function() {
+      let a = new A();
+      let getValue = a.getValue;
+      assert(getValue() === 42);
+    });
+
+  })
+
+  describe('class decorator', function() {
+
+    let symbol = Symbol('getValue');
 
     @autobind
-    noop() {
-      return this.data;
+    class A {
+
+      constructor() {
+        this.value = 42;
+      }
+
+      getValue() {
+        return this.value;
+      }
+
+      [symbol] () {
+        return this.value;
+      }
     }
-  }
 
-  const a = new A();
-
-  it('should not throw when reassigning to an object', function () {
-    a.noop = {
-      foo: 'bar'
-    };
-    assert.deepEqual(a.noop, {
-      foo: 'bar'
+    it('binds methods to an instance', function() {
+      let a = new A();
+      let getValue = a.getValue;
+      assert(getValue() === 42);
     });
-    assert.equal(a.noop, a.noop);
-  });
-
-  it('should not throw when reassigning to a function', function() {
-    a.noop = function noop () {
-      return this.foo;
-    };
-    assert.equal(a.noop(), 'foo');
-    const noop = a.noop;
-    assert.equal(noop(), 'foo');
-    assert.equal(a.noop, a.noop);
-  });
-
-  it('should not throw when reassigning to a function again', function() {
-    a.noop = function noop2 () {
-      return this.bar;
-    };
-    assert(a.noop(), 'bar');
-    const noop2 = a.noop;
-    assert.equal(noop2(), 'bar');
-    assert.equal(a.noop, a.noop);
-  });
-
-  it('should not throw when reassigning to an object after bound a function', function() {
-    a.noop = {};
-    assert.deepEqual(a.noop, {});
-    assert.equal(a.noop, a.noop);
-  });
-});
+  })
+})
