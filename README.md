@@ -16,7 +16,7 @@ As [decorators](https://github.com/wycats/javascript-decorators) are a part of [
 
 **Note uglify users:**
 
-Starting from v2.2, we added `module` entry in package.json and kept `main` entry as is. `module` entry is for those who wish to use modern JavaScript (notably tree shaking with ES modules). If your environment doesn't understand the modern syntax, you can configure your tool to read the ES5 script via the `main` entry or transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended).
+Starting from v2.2, we added `module` entry in package.json and kept `main` entry as is. `module` entry is for those who wish to use modern JavaScript (notably ES modules to enable tree shaking). If your environment doesn't understand the modern syntax, you can configure your tool to read the ES5 script via the `main` entry, or transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended).
 
 **Note Babel 6 users:**
 
