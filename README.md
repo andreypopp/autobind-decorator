@@ -14,6 +14,10 @@ This is particularly useful for situations like React components, where you ofte
 
 As [decorators](https://github.com/wycats/javascript-decorators) are a part of [future ECMAScript standard](https://github.com/tc39/proposals) they can only be used with transpilers such as [Babel](http://babeljs.io).
 
+**Note uglify users:**
+
+Starting from v2.2, we added `module` entry in package.json and kept `main` entry as is. `module` entry is for those who wish to use modern JavaScript (notibly tree shaking with ES modules). If your environment doesn't understand these new syntax, you can still read the script via the `main` entry or transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended).
+
 **Note Babel 6 users:**
 
 The implementation of the decorator transform is currently on hold as the syntax is not final. If you would like to use this project with Babel 6.0, you may use [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) which implement Babel 5 decorator transform for Babel 6.
