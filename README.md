@@ -24,7 +24,7 @@ resolve: {
 }
 ```
 
-You could also transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended).
+You could also transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended). For more details, please read https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages.
 
 **Note Babel 6 users:**
 
