@@ -32,9 +32,26 @@ resolve: {
 
 You could also transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended). For more details, please read https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages.
 
-### Note Babel 6+ users:
+### Note Babel 6 users:
 
-The implementation of the decorator transform is currently on hold as the syntax is not final. If you would like to use this project with Babel 6 or later, you may use [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) which implement Babel 5 decorator transform for Babel 6+.
+The implementation of the decorator transform is currently on hold as the syntax is not final. If you would like to use this project with Babel 6, you may use [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) which implement Babel 5 decorator transform for Babel 6.
+
+### Note Babel 7 users:
+
+Babel 7's `@babel/plugin-proposal-decorators` officially supports the same logic that babel-plugin-transform-decorators-legacy has, but integrates better with Babel 7's other plugins. You can enable this with
+
+```json
+{
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+  ]
+}
+```
+
+in your Babel configuration. Note that `legacy: true` is specifically needed if you
+want to get the same behavior as `transform-decorators-legacy` because there
+are newer versions of the decorator specification coming out, and they do not
+behave the same way. We are trying to keep this module up-to-date with the latest spec.
 
 ### Note TypeScript users:
 
