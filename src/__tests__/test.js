@@ -3,8 +3,8 @@ import autobind, {boundMethod, boundClass} from '..';
 
 describe('autobind method decorator: @boundMethod', () => {
 	class A {
-		constructor() {
-			this.value = 42;
+		constructor(value = 42) {
+			this.value = value;
 		}
 
 		@boundMethod
@@ -66,6 +66,36 @@ describe('autobind method decorator: @boundMethod', () => {
 		value = b.getValue();
 
 		assert(value === 50);
+	});
+
+	test('should not share instance methods between instances', () => {
+		const a = new A('foo');
+		const b = new A('bar');
+
+		const aOriginalGetValue = a.getValue;
+		a.getValue = function () {
+			return 'foo' + '-' + aOriginalGetValue();
+		};
+
+		const bOriginalGetValue = b.getValue;
+		b.getValue = function () {
+			return 'bar' + '-' + bOriginalGetValue();
+		};
+
+		const aGetValue = a.getValue;
+		const bGetValue = b.getValue;
+
+		assert.equal(aGetValue(), 'foo-foo');
+		assert.equal(bGetValue(), 'bar-bar');
+	});
+
+	test('should not share instance fields between instances', () => {
+		const a = new A();
+		const b = new A();
+		a.getValue = {
+			foo: 'bar11'
+		};
+		assert.notStrictEqual(a.getValue, b.getValue);
 	});
 
 	describe('set new value', () => {
