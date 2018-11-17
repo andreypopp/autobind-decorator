@@ -4,28 +4,49 @@
   "description": "Decorator for binding method to an object",
   "main": "lib/index.js",
   "module": "src/index.js",
-  "types": "./index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
-    "build": "make build",
-    "build-test": "make build-test",
-    "test": "make test",
-    "lint": "make lint",
-    "clean": "make clean",
-    "release": "make release"
+    "clean": "rm -rf lib",
+    "build": "babel src --out-dir lib",
+    "lint": "xo",
+    "test": "npm run lint && jest --coverage",
+    "release": "standard-version",
+    "prepublish": "npm run clean && npm run build && npm test"
   },
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^7.0.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.16.0",
-    "babelify": "^7.3.0",
-    "core-js": "^0.9.18",
-    "eslint": "^3.8.0",
-    "mochify": "^2.18.1",
-    "phantomjs": "^2.1.7",
-    "standard-version": "^4.4.0"
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-decorators": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.13.1",
+    "standard-version": "^4.4.0",
+    "xo": "^0.23.0"
+  },
+  "xo": {
+    "parser": "babel-eslint",
+    "globals": [
+      "describe",
+      "test",
+      "beforeEach",
+      "afterEach"
+    ],
+    "overrides": [
+      {
+        "files": "src/__tests__/*.js",
+        "rules": {
+          "no-global-assign": "off",
+          "no-self-compare": "off",
+          "func-names": "off",
+          "func-name-matching": "off"
+        }
+      }
+    ]
   },
   "repository": {
     "type": "git",

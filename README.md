@@ -24,7 +24,7 @@ npm install autobind-decorator
 
 #### Output
 
-We target IE11+ browsers with the following caveats:
+We target IE11+ browsers (see [out browserslist](./src/browserslist)) with the following caveats:
 
 `main` entry is in ES5
 
