@@ -20,6 +20,20 @@ As [decorators](https://github.com/wycats/javascript-decorators) are a part of [
 npm install autobind-decorator
 ```
 
+### Supported platforms:
+
+#### Output
+
+We target IE11+ browsers with the following caveats:
+
+`main` entry is in ES5
+
+`module` entry is in ES6+ (notably ES modules to enable tree shaking)
+
+#### Dev
+
+node 8.10+ with latest npm
+
 ### Note uglify users:
 
 Starting from v2.2, we added `module` entry in package.json and kept `main` entry as is. `module` entry is for those who wish to use modern JavaScript (notably ES modules to enable tree shaking). If your environment doesn't understand the modern syntax, you can configure your tool to read the ES5 script via the `main` entry. EG: with webpack, you could do
