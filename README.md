@@ -52,7 +52,7 @@ The implementation of the decorator transform is currently on hold as the syntax
 
 ### Note Babel 7 users:
 
-Babel 7's `@babel/plugin-proposal-decorators` officially supports the same logic that babel-plugin-transform-decorators-legacy has, but integrates better with Babel 7's other plugins. You can enable this with
+Babel 7's [`@babel/plugin-proposal-decorators`](https://babeljs.io/docs/en/babel-plugin-proposal-decorators) officially supports the same logic that babel-plugin-transform-decorators-legacy has, but integrates better with Babel 7's other plugins. You can enable this with
 
 ```json
 {
