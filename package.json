@@ -9,9 +9,9 @@
     "clean": "rm -rf lib",
     "build": "babel src --out-dir lib --ignore \"src/__tests__/*.js\"",
     "lint": "xo",
-    "test": "npm run lint && jest --coverage",
+    "test": "jest --coverage",
     "release": "standard-version",
-    "prepublish": "npm run clean && npm run build && npm test"
+    "prepublish": "npm run lint && npm test && npm run clean && npm run build"
   },
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "MIT",
