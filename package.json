@@ -29,22 +29,22 @@
     "xo": "^0.23.0"
   },
   "xo": {
-    "parser": "babel-eslint",
-    "globals": [
-      "describe",
-      "test",
-      "beforeEach",
-      "afterEach"
-    ],
     "overrides": [
       {
         "files": "src/__tests__/*.js",
+        "parser": "babel-eslint",
         "rules": {
           "no-global-assign": "off",
           "no-self-compare": "off",
           "func-names": "off",
           "func-name-matching": "off"
-        }
+        },
+        "globals": [
+          "describe",
+          "test",
+          "beforeEach",
+          "afterEach"
+        ]
       }
     ]
   },
