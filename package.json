@@ -7,7 +7,7 @@
   "types": "index.d.ts",
   "scripts": {
     "clean": "rm -rf lib",
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib --ignore \"src/__tests__/*.js\"",
     "lint": "xo",
     "test": "npm run lint && jest --coverage",
     "release": "standard-version",
