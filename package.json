@@ -7,11 +7,11 @@
   "types": "index.d.ts",
   "scripts": {
     "clean": "rm -rf lib",
-    "build": "babel src --out-dir lib --ignore \"src/__tests__/*.js\"",
+    "prepare": " npm run clean && babel src --out-dir lib --ignore \"src/__tests__/*.js\"",
     "lint": "xo",
     "test": "jest --coverage",
     "release": "standard-version",
-    "prepublish": "npm run lint && npm test && npm run clean && npm run build"
+    "prepublishOnly": "npm run lint && npm test"
   },
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "MIT",

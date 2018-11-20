@@ -14,13 +14,13 @@ This is particularly useful for situations like React components, where you ofte
 
 As [decorators](https://github.com/wycats/javascript-decorators) are a part of [future ECMAScript standard](https://github.com/tc39/proposals) they can only be used with transpilers such as [Babel](http://babeljs.io).
 
-## Installation:
+## Installation
 
 ```
 npm install autobind-decorator
 ```
 
-### Supported platforms:
+### Supported platforms
 
 #### Output
 
@@ -34,7 +34,7 @@ We target IE11+ browsers (see [out browserslist](./src/browserslist)) with the f
 
 node 8.10+ with latest npm
 
-### Note uglify users:
+## ES5 and uglify users
 
 Starting from v2.2, we added `module` entry in package.json and kept `main` entry as is. `module` entry is for those who wish to use modern JavaScript (notably ES modules to enable tree shaking). If your environment doesn't understand the modern syntax, you can configure your tool to read the ES5 script via the `main` entry. EG: with webpack, you could do
 
@@ -46,11 +46,13 @@ resolve: {
 
 You could also transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended). For more details, please read https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages.
 
-### Note Babel 6 users:
+## Babel 6 users (legacy only)
 
 The implementation of the decorator transform is currently on hold as the syntax is not final. If you would like to use this project with Babel 6, you may use [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) which implement Babel 5 decorator transform for Babel 6.
 
-### Note Babel 7 users:
+## Babel 7 users
+
+### Legacy
 
 Babel 7's [`@babel/plugin-proposal-decorators`](https://babeljs.io/docs/en/babel-plugin-proposal-decorators) officially supports the same logic that babel-plugin-transform-decorators-legacy has, but integrates better with Babel 7's other plugins. You can enable this with
 
@@ -65,15 +67,19 @@ Babel 7's [`@babel/plugin-proposal-decorators`](https://babeljs.io/docs/en/babel
 in your Babel configuration. Note that `legacy: true` is specifically needed if you
 want to get the same behavior as `transform-decorators-legacy` because there
 are newer versions of the decorator specification coming out, and they do not
-behave the same way. We are trying to keep this module up-to-date with the latest spec.
+behave the same way.
 
-### Note TypeScript users:
+### Modern
+
+For now, you'll have to use one of the solutions in https://github.com/nicolo-ribaudo/legacy-decorators-migration-utility. We are trying to keep this module up-to-date with the latest spec. For more details, please read https://babeljs.io/blog/2018/09/17/decorators.
+
+## TypeScript users
 
 This package will work out of the box with TypeScript (no Babel needed) and includes the `.d.ts` typings along with it.
 
-## Examples:
+## Examples
 
-### Recommended way to bind a method:
+### Recommended way to bind a method
 
 ```js
 import {boundMethod} from 'autobind-decorator'
@@ -96,7 +102,7 @@ method() // returns 42
 
 `@boundMethod` makes `method` into an auto-bound method, replacing the explicit bind call later.
 
-### Legacy approaches:
+### Legacy approaches
 
 Magical `@autobind` that can be used on both classes and methods
 
