@@ -53,21 +53,9 @@ export function boundMethod(target, key, descriptor) {
 			// If getter is called
 			//  * definingProperty: in IE while defining property
 			//  * this === target: on prototype itself Clazz.prototype[key]
-			if (definingProperty || this === target || typeof fn !== 'function') {
+			//  * Object.getPrototypeOf(this) !== target: getter is called on super
+			if (definingProperty || this === target || typeof fn !== 'function' || Object.getPrototypeOf(this) !== target) {
 				return fn;
-			}
-
-			// Object.getPrototypeOf(this) !== target: getter is called on super
-			// Not sure that this part of code worth it
-			// it will cover this use case:
-			// method() {
-			//	var superMethod = super.method;
-			//	return superMethod()
-			// }
-			// We can't redefin property here, because it will be re-defined
-			// on this, shadowing existing property
-			if (Object.getPrototypeOf(this) !== target) {
-				return fn.bind(this);
 			}
 
 			return reDefineProperty(this, fn, true);
