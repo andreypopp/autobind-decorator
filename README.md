@@ -174,4 +174,4 @@ is a good thing
 
 ## Alternative
 
-You might want to look at [Class instance properties](https://tc39.github.io/proposal-class-public-fields/).
+You might want to look at [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties).
