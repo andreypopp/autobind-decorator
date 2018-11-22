@@ -174,4 +174,4 @@ is a good thing
 
 ## Alternative
 
-You might want to look at [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties).
+- [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties). This is also not standard JavaScript yet (Stage 3).
