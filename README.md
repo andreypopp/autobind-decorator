@@ -81,6 +81,8 @@ This package will work out of the box with TypeScript (no Babel needed) and incl
 
 ### Recommended way to bind a method
 
+Use `@boundMethod` on a method
+
 ```js
 import {boundMethod} from 'autobind-decorator'
 
@@ -125,12 +127,14 @@ let method = component.method // .bind(component) isn't needed!
 method() // returns 42
 
 // Also usable on the class to bind all methods
-// Please see performance if you decide to autobind your class
+// Please see performance section below if you decide to autobind your class
 @autobind
 class Component { }
 ```
 
-Please see performance if you decide to autobind your class:
+Use `@boundClass` on a class
+
+Please see performance section below if you decide to autobind your class
 
 ```js
 import {boundClass} from 'autobind-decorator'
