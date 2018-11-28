@@ -102,7 +102,7 @@ method() // returns 42
 
 `@boundMethod` makes `method` into an auto-bound method, replacing the explicit bind call later.
 
-### Discouraged approaches :thumbsdown:
+### Discouraged approaches
 
 Magical `@autobind` that can be used on both classes and methods
 
