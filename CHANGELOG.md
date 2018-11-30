@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/andreypopp/autobind-decorator/compare/v2.3.1...v2.4.0) (2018-11-30)
+
+
+### Features
+
+* **pgk:** use es for modern js, change module field for es5 + esmodule ([771f71b](https://github.com/andreypopp/autobind-decorator/commit/771f71b))
+
+
+
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/andreypopp/autobind-decorator/compare/v2.3.0...v2.3.1) (2018-11-17)
 
