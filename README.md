@@ -26,25 +26,17 @@ npm install autobind-decorator
 
 We target IE11+ browsers (see [out browserslist](./src/browserslist)) with the following caveats:
 
-`main` entry is in ES5
+`main`: ES5
 
-`module` entry is in ES6+ (notably ES modules to enable tree shaking)
+`module`: ES5 + ES modules to enable tree shaking
+
+`es`: modern JS
+
+On consuming modern JS, you can transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended) to minimise the cost. For more details, please read https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages.
 
 #### Dev
 
 node 8.10+ with latest npm
-
-## ES5 and uglify users
-
-Starting from v2.2, we added `module` entry in package.json and kept `main` entry as is. `module` entry is for those who wish to use modern JavaScript (notably ES modules to enable tree shaking). If your environment doesn't understand the modern syntax, you can configure your tool to read the ES5 script via the `main` entry. EG: with webpack, you could do
-
-```js
-resolve: {
-  mainFields: ['main']
-}
-```
-
-You could also transpile the script to your target environment ([@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) is recommended). For more details, please read https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages.
 
 ## Babel 6 users (legacy only)
 
