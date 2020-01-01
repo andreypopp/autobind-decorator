@@ -1,3 +1,5 @@
+const OBJECT_INSTANCE = {};
+
 /**
  * Return a descriptor removing the value and returning a getter
  * The getter will return a .bind version of the function
@@ -15,32 +17,59 @@ export function boundMethod(target, key, descriptor) {
 	// recursion and an "Out of stack space" error.
 	let definingProperty = false;
 
+	function reDefineProperty(instance, propertyValue, callGetter) {
+		let boundFn = null;
+		definingProperty = true;
+		let underlyingFn = propertyValue;
+		// Dummy object which is always strictly not equal to any other value
+		let currentlyBoundFn = OBJECT_INSTANCE;
+		const getter = function () {
+			if (currentlyBoundFn !== underlyingFn) {
+				if (typeof underlyingFn === 'function') {
+					boundFn = underlyingFn.bind(this);
+				} else {
+					boundFn = underlyingFn;
+				}
+				currentlyBoundFn = underlyingFn;
+			}
+			return boundFn;
+		}; 
+		Object.defineProperty(instance, key, {
+			configurable: true,
+			get: getter,
+			set(value) {
+				underlyingFn = value;
+			}
+		});
+		definingProperty = false;
+		if (callGetter) {
+			return getter.call(instance);
+		}
+	}
+
 	return {
 		configurable: true,
 		get() {
-			// eslint-disable-next-line no-prototype-builtins
-			if (definingProperty || this === target.prototype || this.hasOwnProperty(key) ||
-        typeof fn !== 'function') {
+			// If getter is called
+			//  * definingProperty: in IE while defining property
+			//  * this === target: on prototype itself Clazz.prototype[key]
+			//  * Object.getPrototypeOf(this) !== target: getter is called on super
+			if (definingProperty || this === target || typeof fn !== 'function' || Object.getPrototypeOf(this) !== target) {
 				return fn;
 			}
 
-			const boundFn = fn.bind(this);
-			definingProperty = true;
-			Object.defineProperty(this, key, {
-				configurable: true,
-				get() {
-					return boundFn;
-				},
-				set(value) {
-					fn = value;
-					delete this[key];
-				}
-			});
-			definingProperty = false;
-			return boundFn;
+			return reDefineProperty(this, fn, true);
 		},
 		set(value) {
-			fn = value;
+			// accessing prototype
+			if (this === target) {
+				fn = value;
+			} else {
+				// If setter is called on instance we should create instance bound
+				// property here. We won't get into getter anymore
+				// setter on super behaves like on instance
+				reDefineProperty(this, value, false);
+			}
 		}
 	};
 }
@@ -72,7 +101,7 @@ export function boundClass(target) {
 
 		// Only methods need binding
 		if (typeof descriptor.value === 'function') {
-			Object.defineProperty(target.prototype, key, boundMethod(target, key, descriptor));
+			Object.defineProperty(target.prototype, key, boundMethod(target.prototype, key, descriptor));
 		}
 	});
 	return target;

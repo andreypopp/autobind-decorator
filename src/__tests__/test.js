@@ -2,16 +2,20 @@ import assert from 'assert';
 import autobind, {boundMethod, boundClass} from '..';
 
 describe('autobind method decorator: @boundMethod', () => {
-	class A {
-		constructor() {
-			this.value = 42;
-		}
+	let A;
 
-		@boundMethod
-		getValue() {
-			return this.value;
-		}
-	}
+	beforeEach(() => {
+		A = class {
+			constructor(value = 42) {
+				this.value = value;
+			}
+
+			@boundMethod
+			getValue() {
+				return this.value;
+			}
+		};
+	});
 
 	test('binds methods to an instance', () => {
 		const a = new A();
@@ -66,6 +70,57 @@ describe('autobind method decorator: @boundMethod', () => {
 		value = b.getValue();
 
 		assert(value === 50);
+	});
+
+	test('does not change prototype method when set on instance', () => {
+		const a = new A();
+
+		a.getValue = () => 'oops';
+
+		const b = new A();
+		assert.equal(b.getValue(), 42);
+	});
+
+	test('does not share instance fields between instances', () => {
+		const a = new A();
+
+		a.getValue = {
+			foo: 'bar'
+		};
+
+		assert.strictEqual(a.getValue, a.getValue);
+
+		const b = new A();
+		assert.notStrictEqual(a.getValue, b.getValue);
+	});
+
+	describe('set new value on prototype', () => {
+		let A;
+
+		beforeEach(() => {
+			A = class {
+				@boundMethod
+				noop() {
+					return 100;
+				}
+			}
+		})
+
+		test('allows changing of underlying method', () => {
+			A.prototype.noop = () => 200;
+
+			const a = new A();
+
+			assert.strictEqual(a.noop(), 200);
+		});
+
+		test('does binding on first access', () => {
+			const a = new A();
+
+			A.prototype.noop = () => 300;
+
+			assert.strictEqual(a.noop(), 300);
+		});
 	});
 
 	describe('set new value', () => {
