@@ -27,7 +27,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "jest": "^23.6.0",
+    "jest": "^29.3.1",
     "regenerator-runtime": "^0.13.1",
     "standard-version": "^4.4.0",
     "xo": "^0.23.0"
